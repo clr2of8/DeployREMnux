@@ -16,8 +16,8 @@ pip install pycrypto
 
 Special Considerations for usage on Windows:
 
-1. The pip tool may not be in your PATH, so you may need to call it directly like "c:\Python27\Scripts\pip.exe install paramiko"
-2. You must install the "Microsoft Visual C++ 9.0" before installing pycrypto, which you can get [here](https://www.microsoft.com/en-us/download/details.aspx?id=44266)
+1. You must install the "Microsoft Visual C++ 9.0" before installing pycrypto, which you can get [here](https://www.microsoft.com/en-us/download/details.aspx?id=44266).
+2. The pip tool may not be in your PATH, so you may need to call it directly like "c:\Python27\Scripts\pip install paramiko"
 3. Unfortunately, there is a bug in  libcloud on Windows resulting in the default remnux user password not being changed. If you ran DeployREMnux from windows, you need to connect to the instance via SSH or RDP with the default password of "malware" and manually run the change_passwd.sh script. For security reasons, this should be done immediately after deployment.
 
 
