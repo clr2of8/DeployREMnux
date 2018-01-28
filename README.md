@@ -48,5 +48,5 @@ The output of this command will tell you how to connect to your instance via SSH
 
 ## Watch for Orphaned Resources that may cost you money unnecessarily
 
-Always keep an eye on Amazon console (https://console.aws.amazon.com/ec2) as you run these scripts to watch for orphaned instances, volums, etc, killing them manually if necessary to avoid additional charges. You must change to the region where the resources were created (N. Virginia by default), in order to see them.
+Always keep an eye on Amazon console (https://console.aws.amazon.com/ec2) as you run these scripts to watch for orphaned instances, volums, etc, killing them manually if necessary to avoid additional charges. You must change to the region where the resources were created (N. Virginia), in order to see them.
  
