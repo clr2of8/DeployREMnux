@@ -5,7 +5,7 @@ DeployREMnux is a Python script that will deploy a cloud instance of the public 
 
 ## Installation
 
-Make sure you have Python 2.7 installed and use this version.
+Make sure you have Python 2.7 installed and use it here.
 To use the script, you will need to Install the python cloud library https://libcloud.apache.org/ and two other libraries.
 
 ```
