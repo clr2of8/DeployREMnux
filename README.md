@@ -31,7 +31,7 @@ Create New Access Key.
 Record the Access Key ID and the Access Key
 ```
 
-You also need to setup your configuration files, see **DeployREMnux-config.txt.example** for an example. Make a copy of this file and rename it by removing **.example** from the end of the file name. Then update each of the configuration values as needed. At a minimum, you must specify your Amazon access keys that you generated above, as well as the location of your public and private SSH keys. If specifying a windows path to a key file use double backslashes like c:\\\\path\\\\to\\\\key\\\\id_pub
+You also need to set up your configuration file, see **DeployREMnux-config.txt.example** for an example. Make a copy of this file and rename it by removing **.example** from the end of the file name. Then update each of the configuration values as needed. At a minimum, you must specify your Amazon access keys that you generated above, as well as the location of your public and private SSH keys. If specifying a windows path to a key file use double backslashes like "c:\\\\path\\\\to\\\\key\\\\id_pub".
 
 Generate your private key without a passphrase.
 Note, if on Windows, generating the SSH keys via PuTTYgen is problematic. Use ssh-keygen (for example, ssh-keygen -t rsa -b 4096) to generate your keys. You can do this from Linux or through the Git Bash command line on windows.
