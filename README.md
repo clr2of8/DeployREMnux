@@ -21,7 +21,7 @@ Special Considerations for usage on Windows:
 3. Use forward slashes when specifying file paths in the config file.
 
 
-Also, you'll need active Amazon EC2 access keys.  If you don't have one already, you can create one using the following steps:
+Also, you'll need active Amazon EC2 access keys.  You can create keys using the following steps:
 
 ```
 Log into your EC2 Console: https://console.aws.amazon.com
