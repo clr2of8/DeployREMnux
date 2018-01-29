@@ -1,19 +1,19 @@
 {
   "_comment": "See README file for a description of these configuration settings"
   "AmazonConfig": {
-    "_comment" : "To generate key info, go to console.aws.amazon.com, click on your username at the top and select 'My Security Credentials', Under 'Access Keys' click 'Create New Access Key'",
+        "_comment" : "To generate key info, go to console.aws.amazon.com, click on your username at the top and select 'My Security Credentials', Under 'Access Keys' click 'Create New Access Key'",
 	"aws_access_key_id": "PUT_YOUR_KEY_HERE",
 	"aws_secret_access_key": "PUT_YOUR_SECRET_HERE",
 	"_comment2": "You may wish to use a larger sized instance for better performance",
 	"aws_instance_size": "t2.micro"
   },
   "SshConfig": {
-    "_comment": "Enter the full path to your public and private key files. You can generate these keys with 'ssh-keygen', if giving Windows paths use double backslashes."
+        "_comment": "Enter the full path to your public and private key files. You can generate these keys with 'ssh-keygen', if giving Windows paths use forward slashes."
   	"private_key_file": "/root/.ssh/id_rsa",
   	"public_key_file": "/root/.ssh/id_rsa.pub"
   },
   "RemnuxConfig": {
-    "_comment": "This will be the password you use to RDP into the instance, if set to an empty string a random password will be generated",
+        "_comment": "This will be the password you use to RDP into the instance, if set to an empty string a random password will be generated",
    	"remnux_user_password": "MyRDpassword"
   }
 }
