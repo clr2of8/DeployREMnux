@@ -16,7 +16,7 @@ pip install pycrypto
 
 Special Considerations for usage on Windows:
 
-1. You must install the "Microsoft Visual C++ 9.0" before installing pycrypto, which you can get [here](https://www.microsoft.com/en-us/download/details.aspx?id=44266).
+1. You must install the "Microsoft Visual C++ for Python 2.7" before installing pycrypto, which you can get [here](https://www.microsoft.com/en-us/download/details.aspx?id=44266).
 2. The pip tool may not be in your PATH, so you may need to call it directly like "c:\Python27\Scripts\pip install paramiko"
 3. Use forward slashes when specifying file paths in the config file.
 
@@ -34,7 +34,7 @@ Record the Access Key ID and the Access Key
 You also need to set up your configuration file, see **DeployREMnux-config.txt.example** for an example. Make a copy of this file and rename it by removing **.example** from the end of the file name. Then update each of the configuration values as needed. At a minimum, you must specify your Amazon access keys that you generated above, as well as the location of your public and private SSH keys. If specifying a windows path to a key file use forward slashes like "c:/path/to/key/id_pub".
 
 Generate your private key without a passphrase.
-Note, if on Windows, generating the SSH keys via PuTTYgen is problematic. Use ssh-keygen (for example, ssh-keygen -t rsa -b 4096) to generate your keys. You can do this from Linux or through the Git Bash command line or the Linux subsystem on windows.
+Note, if on Windows, generating the SSH keys via PuTTYgen is problematic. Use ssh-keygen (for example, **ssh-keygen -t rsa -b 4096**) to generate your keys. You can do this from Linux or through the Git Bash command line or the Linux subsystem on windows.
 
 
 ## Usage
