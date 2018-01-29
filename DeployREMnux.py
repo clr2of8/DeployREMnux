@@ -24,7 +24,7 @@ private_key_file = config["SshConfig"]["private_key_file"]
 public_key_file = config["SshConfig"]["public_key_file"]
 
 myregion = 'us-east-1'
-IMAGE_ID = 'ami-ede8d797'
+IMAGE_ID = 'ami-79cff703'
 SIZE_ID = config["AmazonConfig"]["aws_instance_size"]
 
 cls = get_driver(Provider.EC2)
