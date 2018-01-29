@@ -4,6 +4,7 @@ from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 from libcloud.compute.deployment import ScriptDeployment
 from libcloud.compute.base import NodeAuthSSHKey
+from libcloud.compute.ssh import ParamikoSSHClient
 import datetime, json, argparse, time, string, random
 from distutils.util import strtobool
 
@@ -83,13 +84,19 @@ if args.password:
     newPass = args.password
 if newPass == "":
     newPass = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(20))
-passwd_change_cmd = ('#!/usr/bin/env bash\n\necho -e "malware\n%s\n%s\n\" | passwd' % (newPass,newPass)).encode('utf-8')
-sd = ScriptDeployment(passwd_change_cmd, args=None, name="change_passwd.sh")
+passwd_change_cmd = ('echo -e "malware\n%s\n%s\n\" | passwd' % (newPass,newPass)).encode('utf-8')
+sd = ScriptDeployment(passwd_change_cmd, args=None, name="change_passwd.sh",delete=True)
 
 my_mapping = [{'VirtualName': None, 'Ebs': {'DeleteOnTermination': 'true'}, 'DeviceName': '/dev/sda1'}]
 
+
 # create and provision node
 node = driver.deploy_node(name=nodeName, ex_blockdevicemappings=my_mapping, image=image, size=size, ex_security_groups=[nodeName] ,auth=pk, ssh_username="remnux",ssh_key=private_key_file,deploy=sd)
+
+# on Windows, libcloud doesn't run the deploy script to change the password, so we try it manually here
+sshclient = ParamikoSSHClient(node.public_ips[0],username="remnux",key=private_key_file)
+res1 = sshclient.connect()
+res2 = sshclient.run(passwd_change_cmd)
 
 # allow remote access (RDP) by modifying the security group
 driver.ex_authorize_security_group(nodeName, 3389, 3389, cidr_ip='0.0.0.0/0', protocol='tcp')
