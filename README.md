@@ -16,7 +16,7 @@ pip install pycrypto
 
 Special Considerations for usage on Windows:
 
-1. You must install the "Microsoft Visual C++ for Python 2.7" before installing pycrypto, which you can get [here](https://www.microsoft.com/en-us/download/details.aspx?id=44266).
+1. You must install "Microsoft Visual C++ for Python 2.7" before installing pycrypto, which you can get [here](https://www.microsoft.com/en-us/download/details.aspx?id=44266) before installing pycrypto.
 2. The pip tool may not be in your PATH, so you may need to call it directly like "c:\Python27\Scripts\pip install paramiko"
 3. Use forward slashes when specifying file paths in the config file.
 
