@@ -1,6 +1,6 @@
 # DeployREMnux
 
-DeployREMnux is a Python script that will deploy a cloud instance of the public REMnux distribution in the Amazon cloud (AWS). REMnux itself is maintained by [Lenny Zeltser](https://zeltser.com/) with extensive help from [David Westcott](https://twitter.com/beast_fighter) and is available from https://remnux.org. 
+DeployREMnux is a Python script that will deploy a cloud instance of the public REMnux distribution in the Amazon cloud (AWS). The REMnux distribution itself is maintained by [Lenny Zeltser](https://zeltser.com/) with extensive help from [David Westcott](https://twitter.com/beast_fighter) and is available from https://remnux.org. 
 
 
 ## Installation
