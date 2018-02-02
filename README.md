@@ -44,12 +44,12 @@ python DeployREMnux.py
 ```
 The output of this command will tell you how to connect to your instance via SSH and RDP as well as give you an option for terminating the instance.
 
-If you would like to instruct REMnux to update itself as part of the deployment use the update option when running the script as follows:
+If you would like to instruct REMnux to update itself as part of the deployment, use the update option when running the script as follows:
 
 ```
 python DeployREMnux.py -u
 ```
-Deploying with the update option will add a significant amount of time to the deployment (~35 minutes), but is recommended.
+This is the equivalent of running "update-remnux full" manually from the command line. Note that deploying with the update option will add a significant amount of time to the deployment (~35 minutes), but is recommended.
 
 ## Watch for Orphaned Resources that may cost you money unnecessarily
 
