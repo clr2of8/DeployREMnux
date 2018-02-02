@@ -12,6 +12,7 @@ from distutils.util import strtobool
 parser = argparse.ArgumentParser(description='some')
 parser.add_argument('-p','--password',help='The password for the remnux user that will be used to RDP into the instace', required=False)
 parser.add_argument('-t','--terminate',help='Terminate the specified node id and associated resources. e.g. -t i-0cf26edddf5c39b6a', required=False)
+parser.add_argument('-u','--update',help='Issue the "update-remnux full" command on deploy to have the REMnux distro update itself', default=False, required=False, action='store_true')
 args = parser.parse_args()
 
 
@@ -98,12 +99,22 @@ sshclient = ParamikoSSHClient(node.public_ips[0],username="remnux",key=private_k
 res1 = sshclient.connect()
 res2 = sshclient.run(passwd_change_cmd)
 
+
 # allow remote access (RDP) by modifying the security group
 driver.ex_authorize_security_group(nodeName, 3389, 3389, cidr_ip='0.0.0.0/0', protocol='tcp')
 
+#update REMnux
+if args.update:
+	print("The image is deployed, but now it is updating itself, this will take ... quite a while. (~35 minutes)")
+	res3 = sshclient.run("update-remnux full")
+	print("The update is complete. Rebooting now for settings to take full effect.")
+	node.reboot()
+	driver.wait_until_running([node], wait_period=10, timeout=1500, ssh_interface='public_ips', force_ipv4=True, ex_list_nodes_kwargs=None)
+	print("Done! Whew, that was a lot of work!")
+
 print("REMnux Instance Ready to use, IP address: %s  RDP password for the 'remnux' user is %s" % (node.public_ips[0], newPass))
 print("For SSH access use this command: ssh -i %s remnux@%s" % (private_key_file, node.public_ips[0]))
-
+	
 # prompt before instance shutdown
 print 'Would you like to shutdown the instance now? [Y/n]',
 while True:
