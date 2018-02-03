@@ -8,7 +8,7 @@
 	"aws_instance_size": "t2.micro"
   },
   "SshConfig": {
-        "_comment": "Enter the full path to your public and private key files. You can generate these keys with 'ssh-keygen', if giving Windows paths use forward slashes."
+        "_comment": "Enter the full path to your public and private key files. You can generate these keys with 'ssh-keygen', if giving Windows paths use forward slashes.",
   	"private_key_file": "/root/.ssh/id_rsa",
   	"public_key_file": "/root/.ssh/id_rsa.pub"
   },
