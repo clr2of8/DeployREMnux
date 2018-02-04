@@ -9,7 +9,7 @@ import datetime, json, argparse, time, string, random
 from distutils.util import strtobool
 
 
-parser = argparse.ArgumentParser(description='some')
+parser = argparse.ArgumentParser(description='DeployREMnux is a Python script that will deploy a cloud instance of the public REMnux distribution in the Amazon cloud (AWS). The REMnux distribution itself is maintained by Lenny Zeltser with extensive help from David Westcott and is available from https://remnux.org. This script was created by Carrie Roberts (@OrOneEqualsOne).')
 parser.add_argument('-p','--password',help='The password for the remnux user that will be used to RDP into the instace', required=False)
 parser.add_argument('-t','--terminate',help='Terminate the specified node id and associated resources. e.g. -t i-0cf26edddf5c39b6a', required=False)
 parser.add_argument('-u','--update',help='Issue the "update-remnux full" command on deploy to have the REMnux distro update itself', default=False, required=False, action='store_true')
@@ -95,7 +95,7 @@ my_mapping = [{'VirtualName': None, 'Ebs': {'DeleteOnTermination': 'true'}, 'Dev
 node = driver.deploy_node(name=nodeName, ex_blockdevicemappings=my_mapping, image=image, size=size, ex_security_groups=[nodeName] ,auth=pk, ssh_username="remnux",ssh_key=private_key_file,deploy=sd)
 
 # on Windows, libcloud doesn't run the deploy script to change the password, so we try it manually here
-sshclient = ParamikoSSHClient(node.public_ips[0],username="remnux",key=private_key_file)
+sshclient = ParamikoSSHClient(node.public_ips[0],username="remnux",key=private_key_file,timeout=300)
 res1 = sshclient.connect()
 res2 = sshclient.run(passwd_change_cmd)
 
@@ -103,20 +103,34 @@ res2 = sshclient.run(passwd_change_cmd)
 # allow remote access (RDP) by modifying the security group
 driver.ex_authorize_security_group(nodeName, 3389, 3389, cidr_ip='0.0.0.0/0', protocol='tcp')
 
-#update REMnux
-if args.update:
-	print("The image is deployed, but now it is updating itself, this will take ... quite a while. (~35 minutes)")
-	res3 = sshclient.run("update-remnux full")
-	print("The update is complete. Rebooting now for settings to take full effect.")
-	node.reboot()
-	driver.wait_until_running([node], wait_period=10, timeout=1500, ssh_interface='public_ips', force_ipv4=True, ex_list_nodes_kwargs=None)
-	print("Done! Whew, that was a lot of work!")
 
 print("REMnux Instance Ready to use, IP address: %s  RDP password for the 'remnux' user is %s" % (node.public_ips[0], newPass))
 print("For SSH access use this command: ssh -i %s remnux@%s" % (private_key_file, node.public_ips[0]))
+
+#update REMnux
+if args.update:
+	print("Go ahead and use it while it is updating itself, this will take ... quite a while. (~35 minutes)")
+	res3 = sshclient.run("update-remnux full")
+	print("Done! Whew, that was a lot of work!. A reboot is necessary for the update to take full effect.")
+	# prompt before instance terminate
+	print 'Would you like to reboot the instance now? [Y/n]'
+	while True:
+		try:
+			response = raw_input().lower()
+			if ((response is "") or (strtobool(response))):
+				print("Rebooting now to complete update process.")
+				node.reboot()
+				time.sleep(60) #a hack because the node reports "running" even when it is rebooting
+				print("Rebooted and ready to go. Enjoy!")
+				break
+			else:
+				print ("OK, you can reboot it later at your own convenience.")
+				break
+		except ValueError:
+			print "Please respond with y or n"
 	
-# prompt before instance shutdown
-print 'Would you like to shutdown the instance now? [Y/n]',
+# prompt before instance terminate
+print 'Would you like to terminate (premanently destroy) the instance now? [Y/n]'
 while True:
     try:
         response = raw_input().lower()
@@ -124,10 +138,10 @@ while True:
             cleanup_and_exit(node)
             break
         else:
-            print ("You can terminate this instance in the future by running this command:\n python DeployREMnux.py -t %s" % node.id)
+            print ("You can terminate this instance in the future by running this command:\npython DeployREMnux.py -t %s" % node.id)
             break
     except ValueError:
-        print "Please respond with y or n",       
+        print "Please respond with y or n"      
 
 
 
