@@ -1,5 +1,5 @@
 {
-  "_comment": "See README file for a description of these configuration settings"
+  "_comment": "See README file for a description of these configuration settings",
   "AmazonConfig": {
         "_comment" : "To generate key info, go to console.aws.amazon.com, click on your username at the top and select 'My Security Credentials', Under 'Access Keys' click 'Create New Access Key'",
 	"aws_access_key_id": "PUT_YOUR_KEY_HERE",
