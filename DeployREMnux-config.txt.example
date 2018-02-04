@@ -14,7 +14,7 @@
   },
   "RemnuxConfig": {
         "_comment": "This will be the password you use to RDP into the instance, if set to an empty string a random password will be generated",
-   	"remnux_user_password": "MyRDpassword"
+   	"remnux_user_password": ""
   }
 }
 
